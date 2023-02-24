@@ -1,27 +1,139 @@
-# Locations
+# Formunauts Assignment
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.4.
+## Setup and Development
 
-## Development server
+Run `npm i` to install the dependencies.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Starting the Development web server
 
-## Code scaffolding
+Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Starting the fake backend API
 
-## Build
+This projects includes a fake backend. To start the backend run `npm run backend`. It runs on `http://localhost:3000` and offers the following API endpoints:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- `http://localhost:3000/places`
+- `http://localhost:3000/places/<id>`
+- `http://localhost:3000/current_place`
 
-## Running unit tests
+This is encapsulated by the [`PlaceApi`](./src/app/shared/api/place.api.ts).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## The Assignment
 
-## Running end-to-end tests
+Your assignment is to build a place check-in. A user can be checked in at only one place at a time. The app contains 2 pages:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- `Place List`: Shows all places
+- `Place Details`: Shows the details for a single place
 
-## Further help
+The main focus lies on these topics:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Understanding Inputs / Outputs in Angular Templates
+- Understanding Angular Template structural directives, such as `*ngIf` and `*ngFor`
+- Working with Angular Routing
+- Writing an Angular Component (see `PlaceListItemComponent`)
+- Basic understanding of RxJS Observables, Subjects and Operators
+- Working with Angular Reactive Forms
+- Simple state management in `PlaceService` using RxJS
+- How to use styling in Angular
+
+You can:
+
+- FontAwesome if you want to add some icons
+- A CSS framework of your choice (tailwind, bootstrap, ...)
+- change anything you like if you feel that it is cleaner, better, faster, ...
+
+### Component: Place List Item
+
+Each place list item has the following properties:
+
+- Shows the name of the place
+- Shows a small preview image (if available)
+- Shows either a "check in" or "check out" button
+
+Use the `place-list-item.component` to display a single item. Check out how to use `@Input` and `@Output` in Angular.
+
+### Page: Place list
+
+URL: `/places`
+
+The place list should contain the following elements:
+
+- A text input field "search" to filter for a place
+- A "only visited" toggle that filters for places that were already visited
+- A list of place list items
+
+It has the following properties:
+
+- When clicking a place list item, navigate to the corresponding `Place Details`
+- When entering text into the search, the filtering should not happen immediately, but rather it should wait 200ms after the last change. Tip: Use `RxJS` for debouncing.
+
+#### Acceptance Criteria
+
+```
+WHEN viewing the list without any filter
+THEN it should show all places
+```
+
+```
+WHEN filtering via text input
+THEN the list only shows places where the place name contains the search term
+```
+
+```
+WHEN filtering via toggle "visited"
+THEN the list only shows places that were visited.
+```
+
+```
+WHEN filtering via text input
+  AND the "visited" toggle is active
+THEN the list only shows places that
+```
+
+```
+GIVEN that the user is not checked-in at place
+WHEN clicking "check in" on a place list item
+THEN this button should change to "check out"
+  AND every other item should have a "check in" button
+```
+
+```
+GIVEN that the user is checked-in at place
+WHEN clicking "check out" on this place list item
+THEN this button should change to "check in"
+```
+
+```
+GIVEN that the user is checked-in at place
+WHEN clicking "check in" on another place list item
+THEN this button should change to "check out"
+  AND every other item should have a "check in" button
+```
+
+### Page: Place Details
+
+URL: `/places/<id>`
+
+This page displays detailed information of a place. It also allows to check-in / check-out at this particular place.
+
+The place detail has the following properties:
+
+- Name of the place
+- Image of the place (if available)
+- Best result for the place (general and by current user)
+- How often the place was visited (in general and by the current user)
+- A back button that when clicked navigates back to the place list
+
+#### Acceptance Criteria
+
+```
+GIVEN that the user is checked-out at this place
+WHEN clicking "check in"
+THEN this button should change to "check out"
+```
+
+```
+GIVEN that the user is checked-in at this place
+WHEN clicking "check out"
+THEN this button should change to "check in"
+```
