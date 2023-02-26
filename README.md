@@ -28,13 +28,23 @@ Your assignment is to build a place check-in. A user can be checked in at only o
 The main focus lies on these topics:
 
 - Understanding Inputs / Outputs in Angular Templates
+  https://itnext.io/angular-input-output-f0418ab4cc91
 - Understanding Angular Template structural directives, such as `*ngIf` and `*ngFor`
+  https://angular.io/guide/built-in-directives#built-in-structural-directives
 - Working with Angular Routing
+  https://angular.io/guide/router#defining-a-basic-route
 - Writing an Angular Component (see `PlaceListItemComponent`)
+  https://angular.io/guide/architecture-components#introduction-to-components-and-templates
 - Basic understanding of RxJS Observables, Subjects and Operators
+  https://angular.io/guide/observables
+  https://angular.io/guide/rx-library#operators
+  https://rxjs.dev/guide/overview
 - Working with Angular Reactive Forms
+  https://angular.io/guide/reactive-forms
 - Simple state management in `PlaceService` using RxJS
+  https://rxjs.dev/guide/scheduler
 - How to use styling in Angular
+  https://tailwindcss.com/docs/guides/angular
 
 You can:
 
