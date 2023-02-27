@@ -12,9 +12,9 @@ Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The 
 
 This projects includes a fake backend. To start the backend run `npm run backend`. It runs on `http://localhost:3000` and offers the following API endpoints:
 
-- `http://localhost:3000/places`
-- `http://localhost:3000/places/<id>`
-- `http://localhost:3000/current_place`
+- `http://localhost:3000/places` GET
+- `http://localhost:3000/places/<id>` GET
+- `http://localhost:3000/current_place` POST
 
 This is encapsulated by the [`PlaceApi`](./src/app/shared/api/place.api.ts).
 

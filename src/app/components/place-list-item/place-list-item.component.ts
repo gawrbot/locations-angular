@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 /**
  * Displays a place as a list item.
@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-place-list-item',
   templateUrl: './place-list-item.component.html',
-  styleUrls: ['./place-list-item.component.scss']
+  styleUrls: ['./place-list-item.component.scss'],
 })
 export class PlaceListItemComponent {
-
+  @Input() placeListItem = '';
 }
