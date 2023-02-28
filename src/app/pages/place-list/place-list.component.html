@@ -1,7 +1,6 @@
 <div>
   <h2>LIST OF PLACES</h2>
-  <p>There are {{ places }} places in the database</p>
-  <!-- <ul *ngFor="let place of places | async; index as i">
-    <li>{{ place.name }}</li>
-  </ul> -->
+  <ul>
+    <li *ngFor="let place of places">{{ place.name }}</li>
+  </ul>
 </div>

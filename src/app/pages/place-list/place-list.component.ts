@@ -18,17 +18,14 @@ export class PlaceListComponent {
   //   nonNullable: true,
   // });
 
-  places: Observable<IPlaceListResponse>;
+  places: IPlace[] = [];
 
   constructor(private http: HttpClient) {
-    this.places = this.http.get<IPlaceListResponse>(
-      'http://localhost:3000/places'
-    );
-
-    console.log(
-      'subscription: ',
-      this.places.subscribe((x: any) => console.log('x', x))
-    );
+    this.http
+      .get<IPlaceListResponse>('http://localhost:3000/places')
+      .subscribe((response: IPlaceListResponse) => {
+        this.places = response.items;
+      });
   }
 
   // places: Observable<IPlaceListResponse>;
