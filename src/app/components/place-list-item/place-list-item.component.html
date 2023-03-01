@@ -1,2 +1,20 @@
-<p>place-list-item works!</p>
-<app-place-list-item></app-place-list-item>
+<h3>
+  <a [title]="'Go to' + place.name" [routerLink]="['/places', place.id]">{{
+    place.name
+  }}</a>
+</h3>
+<ng-content select=".image"></ng-content>
+<ng-content select=".infoHeadline"></ng-content>
+<ng-content select=".wrapper"></ng-content>
+<ng-content select=".button"></ng-content>
+<ng-content select=".bestOverall"></ng-content>
+<ng-content select=".bestSelf"></ng-content>
+<ng-content select=".visitsOverall"></ng-content>
+<ng-content select=".visitsSelf"></ng-content>
+<button
+  class="button border border-2 rounded-sm px-2 my-4"
+  type="button"
+  (click)="checkInOrOut.emit()"
+>
+  {{ isPlaceCheckedIn ? "Check out" : "Check in" }}
+</button>

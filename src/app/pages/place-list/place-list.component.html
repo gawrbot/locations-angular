@@ -1,6 +1,39 @@
+<h2>List of Places</h2>
 <div>
-  <h2>LIST OF PLACES</h2>
+  <div class="my-4">
+    <input
+      class="border border-2 px-1 mb-2"
+      id="searchTerm"
+      type="text"
+      [formControl]="searchTerm"
+      placeholder="Search..."
+    />
+    <div
+      class="relative inline-block w-10 mx-2 align-middle select-none transition duration-200 ease-in"
+    >
+      <input
+        [formControl]="onlyVisited"
+        type="checkbox"
+        name="toggle"
+        id="toggle"
+        class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+      />
+      <label
+        for="toggle"
+        class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+      ></label>
+    </div>
+    <label for="toggle" class="text-gray-700"
+      >Show only places I have already visited</label
+    >
+  </div>
   <ul>
-    <li *ngFor="let place of places">{{ place.name }}</li>
+    <app-place-list-item
+      *ngFor="let place of searchResults"
+      [place]="place"
+      (checkInOrOut)="onCheckInOrOut(place)"
+      [checkedInPlace]="checkedInPlace"
+    >
+    </app-place-list-item>
   </ul>
 </div>
