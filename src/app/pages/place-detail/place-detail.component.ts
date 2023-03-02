@@ -19,6 +19,7 @@ export class PlaceDetailComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const placeIdFromRoute = routeParams.get('id');
 
+    // get route id
     placeIdFromRoute &&
       this.placeService
         .loadOnePlace(placeIdFromRoute)
@@ -26,15 +27,20 @@ export class PlaceDetailComponent implements OnInit {
           this.place = place;
         });
 
-    this.placeService.checkedInPlace$.subscribe((place: IPlace | null) => {
-      this.checkedInPlace = place;
+    this.placeService.getCheckInState().subscribe((value) => {
+      this.checkedInPlace = value;
     });
   }
-  onCheckInOrOut() {
-    if (this.checkedInPlace === null) {
-      this.placeService.checkIn(this.place);
+
+  onCheckInOrOut(place: IPlace) {
+    if (this.checkedInPlace?.id === place.id) {
+      // check out
+      this.placeService.checkOut(place);
+      console.log('checked out from', place.name);
     } else {
-      this.placeService.checkOut(this.checkedInPlace);
+      // check in
+      this.placeService.checkIn(place);
+      console.log('checked in to', this.checkedInPlace?.name);
     }
   }
 }

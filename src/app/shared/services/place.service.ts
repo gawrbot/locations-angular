@@ -13,19 +13,20 @@ import {
 export class PlaceService {
   places!: IPlace[];
   constructor(private readonly placeApi: PlaceApi) {}
-  private checkedInPlaceSubject = new BehaviorSubject<IPlace | null>(null);
-  checkedInPlace$ = this.checkedInPlaceSubject.asObservable();
+  private checkInStateSubject = new BehaviorSubject<IPlace | null>(null);
 
-  setCheckedInPlace(place: IPlace) {
-    this.checkedInPlaceSubject.next(place);
+  getCheckInState(): Observable<IPlace | null> {
+    return this.checkInStateSubject.asObservable();
   }
 
-  clearCheckedInPlace() {
-    this.checkedInPlaceSubject.next(null);
+  checkIn(place: IPlace) {
+    this.placeApi.setCurrentPlace(place.id, { isHere: true });
+    this.checkInStateSubject.next(place);
   }
 
-  getCheckedInPlace(): IPlace | null {
-    return this.checkedInPlaceSubject.value;
+  checkOut(place: IPlace) {
+    this.placeApi.setCurrentPlace(place.id, { isHere: false });
+    this.checkInStateSubject.next(null);
   }
 
   loadAllPlaces(): Observable<IPlace[]> {
@@ -43,25 +44,5 @@ export class PlaceService {
         return response;
       })
     );
-  }
-
-  checkIn(place: IPlace) {
-    // Check out the current place first, if there is one
-    const currentCheckedInPlace = this.getCheckedInPlace();
-    if (currentCheckedInPlace) {
-      this.checkOut(currentCheckedInPlace);
-    }
-    // Check in the new place
-    this.placeApi
-      .setCurrentPlace(place.id, { isHere: true })
-      .subscribe((checkedInPlace: IPlace) => {
-        this.setCheckedInPlace(checkedInPlace);
-      });
-  }
-
-  checkOut(place: IPlace) {
-    this.placeApi.setCurrentPlace(place.id, { isHere: false }).subscribe(() => {
-      this.clearCheckedInPlace();
-    });
   }
 }

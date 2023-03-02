@@ -27,13 +27,17 @@
       >Show only places I have already visited</label
     >
   </div>
-  <ul>
-    <app-place-list-item
-      *ngFor="let place of searchResults"
-      [place]="place"
-      (checkInOrOut)="onCheckInOrOut(place)"
-      [checkedInPlace]="checkedInPlace"
-    >
-    </app-place-list-item>
-  </ul>
+  <div class="rounded-md bg-gray-100 p-8 mt-4 max-w-fit">
+    <ul>
+      <li>
+        <app-place-list-item
+          *ngFor="let place of searchResults"
+          [place]="place"
+          [checkedInPlace]="checkedInPlace"
+          (setCheckInState)="onCheckInOrOut(place)"
+        >
+        </app-place-list-item>
+      </li>
+    </ul>
+  </div>
 </div>

@@ -37,15 +37,21 @@ export class PlaceListComponent implements OnInit {
     this.onlyVisited.valueChanges.pipe(debounceTime(200)).subscribe(() => {
       this.searchResults = this.filterPlaces(this.searchTerm.value);
     });
+    // this gets the currently checked in place
+    this.placeService.getCheckInState().subscribe((value) => {
+      this.checkedInPlace = value;
+    });
   }
 
   onCheckInOrOut(place: IPlace) {
-    if (this.checkedInPlace && this.checkedInPlace.id === place.id) {
-      // User is checking out
-      this.checkedInPlace = null;
+    if (this.checkedInPlace?.id === place.id) {
+      // check out
+      this.placeService.checkOut(place);
+      console.log('checked out from', place.name);
     } else {
-      // User is checking in
-      this.checkedInPlace = place;
+      // check in
+      this.placeService.checkIn(place);
+      console.log('checked in to', this.checkedInPlace?.name);
     }
   }
 

@@ -1,20 +1,27 @@
+<ng-content select=".container"></ng-content>
 <h3>
   <a [title]="'Go to' + place.name" [routerLink]="['/places', place.id]">{{
     place.name
   }}</a>
 </h3>
 <ng-content select=".image"></ng-content>
-<ng-content select=".infoHeadline"></ng-content>
-<ng-content select=".wrapper"></ng-content>
-<ng-content select=".button"></ng-content>
-<ng-content select=".bestOverall"></ng-content>
-<ng-content select=".bestSelf"></ng-content>
-<ng-content select=".visitsOverall"></ng-content>
-<ng-content select=".visitsSelf"></ng-content>
+<div class="mb-4">
+  <ng-content select=".infoHeadline"></ng-content>
+  <ng-content select=".wrapper"></ng-content>
+  <ng-content select=".button"></ng-content>
+  <ng-content select=".bestOverall"></ng-content>
+  <ng-content select=".bestSelf"></ng-content>
+  <ng-content select=".visitsOverall"></ng-content>
+  <ng-content select=".visitsSelf"></ng-content>
+</div>
 <button
-  class="button border border-2 rounded-sm px-2 my-4"
+  class="button rounded-sm px-2 mb-12 bg-sky-600 text-white"
   type="button"
-  (click)="checkInOrOut.emit()"
+  (click)="checkInOut(place)"
 >
-  {{ isPlaceCheckedIn ? "Check out" : "Check in" }}
+  {{
+    checkedInPlace === null || checkedInPlace.id !== place.id
+      ? "Check in"
+      : "Check out"
+  }}
 </button>

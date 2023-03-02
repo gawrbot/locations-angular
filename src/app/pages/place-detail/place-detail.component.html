@@ -5,41 +5,40 @@
 >
   Go back to homepage
 </button>
-
-<app-place-list-item
-  [place]="place"
-  (checkInOrOut)="onCheckInOrOut()"
-  [checkedInPlace]="checkedInPlace"
->
-  <img
-    class="image"
-    *ngIf="place.image_url"
-    src="{{ place.image_url }}"
-    width="200"
-  />
-  <h4 class="infoHeadline">
-    Here you can find some infos about {{ place.name }}
-  </h4>
-  <ul class="wrapper">
-    <li
-      class="bestOverall list-disc list-inside"
-      *ngIf="place.best_result_overall"
-    >
-      The best overall result for {{ place.name }} is
-      {{ place.best_result_overall }}.
-    </li>
-    <li class="bestSelf list-disc list-inside" *ngIf="place.best_result_self">
-      The best result for you for {{ place.name }} is
-      {{ place.best_result_self }}.
-    </li>
-    <li
-      class="visitsOverall list-disc list-inside"
-      *ngIf="place.visits_overall"
-    >
-      {{ place.name }} has been visited {{ place.visits_overall }} times.
-    </li>
-    <li class="visitsSelf list-disc list-inside" *ngIf="place.visits_self">
-      You have visited {{ place.name }} {{ place.visits_self }} times.
-    </li>
-  </ul>
-</app-place-list-item>
+<div class="container rounded-md bg-gray-100 p-8 mt-4 max-w-fit">
+  <app-place-list-item
+    [place]="place"
+    [checkedInPlace]="checkedInPlace"
+    (setCheckInState)="onCheckInOrOut(place)"
+  >
+    <img
+      class="image"
+      *ngIf="place.image_url"
+      src="{{ place.image_url }}"
+      width="200"
+    />
+    <h4 class="infoHeadline">Here are some infos about {{ place.name }}</h4>
+    <ul class="wrapper">
+      <li
+        class="bestOverall list-disc list-inside"
+        *ngIf="place.best_result_overall"
+      >
+        The best overall result for {{ place.name }} is
+        {{ place.best_result_overall }}.
+      </li>
+      <li class="bestSelf list-disc list-inside" *ngIf="place.best_result_self">
+        The best result for you for {{ place.name }} is
+        {{ place.best_result_self }}.
+      </li>
+      <li
+        class="visitsOverall list-disc list-inside"
+        *ngIf="place.visits_overall"
+      >
+        {{ place.name }} has been visited {{ place.visits_overall }} times.
+      </li>
+      <li class="visitsSelf list-disc list-inside" *ngIf="place.visits_self">
+        You have visited {{ place.name }} {{ place.visits_self }} times.
+      </li>
+    </ul>
+  </app-place-list-item>
+</div>

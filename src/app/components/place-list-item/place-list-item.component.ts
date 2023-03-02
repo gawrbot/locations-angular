@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IPlace } from 'src/app/shared/models/place.type';
 
 /**
@@ -15,19 +8,16 @@ import { IPlace } from 'src/app/shared/models/place.type';
   selector: 'app-place-list-item',
   templateUrl: './place-list-item.component.html',
 })
-export class PlaceListItemComponent implements OnChanges {
+export class PlaceListItemComponent implements OnInit {
   @Input() place!: IPlace;
   @Input() checkedInPlace!: IPlace | null;
-  @Output() checkInOrOut = new EventEmitter<boolean>();
-  isPlaceCheckedIn = false;
+  @Output() setCheckInState = new EventEmitter<IPlace>();
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if ('checkedInPlace' in changes) {
-      this.isPlaceCheckedIn = this.checkedInPlace?.id === this.place.id;
-    }
+  checkInOut(place: IPlace) {
+    this.setCheckInState.emit(place);
   }
 
-  onCheckInOrOut() {
-    this.checkInOrOut.emit();
-  }
+  constructor() {}
+
+  ngOnInit() {}
 }
