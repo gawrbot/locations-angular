@@ -1,4 +1,4 @@
-# Formunauts Assignment
+# Assignment
 
 ## Setup and Development
 
