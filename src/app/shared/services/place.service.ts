@@ -20,12 +20,12 @@ export class PlaceService {
   }
 
   checkIn(place: IPlace) {
-    this.placeApi.setCurrentPlace(place.id, { isHere: true });
+    this.placeApi.setCurrentPlace(place.id, { isHere: true }).subscribe();
     this.checkInStateSubject.next(place);
   }
 
   checkOut(place: IPlace) {
-    this.placeApi.setCurrentPlace(place.id, { isHere: false });
+    this.placeApi.setCurrentPlace(place.id, { isHere: false }).subscribe();
     this.checkInStateSubject.next(null);
   }
 
